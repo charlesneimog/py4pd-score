@@ -1,0 +1,5 @@
+#N canvas 142 245 611 537 8;
+#X obj 6 5 py4pd -lib pd-score;
+#X obj 12 130 py.chord 248 248;
+#X msg 12 55 C5;
+#X connect 2 0 1 0;

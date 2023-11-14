@@ -1,0 +1,14 @@
+#N canvas 589 9 526 750 8;
+#X msg 44 39 reload;
+#X text 133 64 <= Py Chord.;
+#X obj 4 7 py4pd -lib pd-score;
+#X obj 9 68 py.chord 248 248;
+#X msg 35 199 reload;
+#X text 133 224 <= Py Chord.;
+#X obj 9 228 py.chord 248 248;
+#X msg 9 199 C4;
+#X msg 9 39 6100;
+#X connect 0 0 3 0;
+#X connect 4 0 6 0;
+#X connect 7 0 6 0;
+#X connect 8 0 3 0;
