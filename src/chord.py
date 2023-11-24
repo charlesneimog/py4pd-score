@@ -1,7 +1,7 @@
+import pd
 import os
 from random import randint
-from .utils import *
-from .utils import getpitchKey
+from .pdscoreutils import getpitchKey, neoscore_midicent2note
 
 os.environ['QT_QPA_PLATFORM'] = "xcb" 
 if os.name == 'nt':
@@ -10,21 +10,21 @@ try:
     from neoscore.common import *
 except Exception as e:
     pd.error(str(e))
-    pd.error("To fix this, send the message 'global nescore' to the object py.pip and restart Pd.")
+    pd.error("To fix this, send the message 'pipinstall local neoscore' to the object py4pd and restart Pd.")
 
-def chord(pitches):
+def chord(pitches, **kwargs):
     neoscore.setup()
     if isinstance(pitches, str):
         pitches = [pitches]
     elif isinstance(pitches, int):
         try:
-            pitches = [neoscore_midicent2note(pitches)]
-        except BaseException:
-            pd.error("The integer must be a midicent")
+            pitches = [neoscore_midicent2note(pitches, **kwargs)]
+        except BaseException as e:
+            pd.error(str(e))
             return
     elif isinstance(pitches, float):
         try:
-            pitches = [neoscore_midicent2note(int(pitches))]
+            pitches = [neoscore_midicent2note(int(pitches), **kwargs)]
         except BaseException:
             pd.error("The float must be a midicent")
             return
@@ -35,9 +35,9 @@ def chord(pitches):
             if isinstance(pitch, str):
                 newPitches.append(pitch)
             elif isinstance(pitch, int):
-                newPitches.append(neoscore_midicent2note(pitch))
+                newPitches.append(neoscore_midicent2note(pitch, **kwargs))
             elif isinstance(pitch, float):
-                newPitches.append(neoscore_midicent2note(int(pitch)))
+                newPitches.append(neoscore_midicent2note(int(pitch, **kwargs)))
 
             else:
                 pd.error("The list must contain only strings (c4, c#4, c+4, etc) or integers (midicents)")
@@ -68,11 +68,11 @@ def chord(pitches):
             pd.error(e)
             return
 
-    scoreNumber = pd.get_global_var('scoreNumber')
+    scoreNumber = pd.get_obj_var('scoreNumber')
     if scoreNumber is None:
         scoreNumber = 0
     notePathName = py4pdTMPfolder + "/" + pd.get_obj_pointer() + "_" + str(scoreNumber) + ".ppm"
-    pd.set_global_var('scoreNumber', scoreNumber + 1)
+    pd.set_obj_var('scoreNumber', scoreNumber + 1)
     patchZoom = pd.get_patch_zoom()
     if (patchZoom == 1):
         scoreZoom = 75
