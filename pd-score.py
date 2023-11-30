@@ -11,5 +11,7 @@ def py4pdLoadObjects():
         scoreImage = './resources/score_nozoom.gif'
     else:
         pd.error("The zoom of the patch is other than 1 or 2, using the default image")
+        scoreImage = './resources/score.png'
+    pd.add_object(chord, 'py.chord', objtype=pd.VIS), objimage=scoreImage)
         
     pd.add_object(chord, 'py.chord', objtype=pd.VIS, objimage=scoreImage)
