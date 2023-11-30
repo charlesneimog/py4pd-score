@@ -8,7 +8,6 @@ def neoscore_midicent2note(midicent, **kwargs):
     if isinstance(midicent, list):
         return [neoscore_midicent2note(x, **kwargs) for x in midicent]
 
-    
     note_names = [
         "C",
         "C#",
@@ -24,7 +23,6 @@ def neoscore_midicent2note(midicent, **kwargs):
         "B",
         "C",
     ]
-    
 
     # multiply by 0.01, then round to nearest integer, then multiply by 100
     newmidicent = round(float(midicent) * 0.01) * 100
@@ -32,11 +30,17 @@ def neoscore_midicent2note(midicent, **kwargs):
     desviation = round(desviation, 1)
     octave = int(midicent // 1200) - 1
     note = int(newmidicent / 100) % 12
-    if desviation > 40 and desviation < 60:
+
+    if desviation > 45 and desviation < 55:
         return f"{note_names[note]}+{octave}"
-    elif desviation < -40 and desviation > -60:
+    elif desviation < -45 and desviation > -55:
         return f"{note_names[note]}-{octave}"
+    elif desviation > -5 and desviation < 5:
+        return f"{note_names[note]}{octave}"
     else:
+        pd.error(
+            "Error: midicent2note: desviation out of range of our current notation system"
+        )
         return f"{note_names[note]}{octave}"
 
 
