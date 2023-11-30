@@ -5,7 +5,6 @@ import pd
 
 from .pdscoreutils import getpitchKey, neoscore_midicent2note
 
-os.environ["QT_QPA_PLATFORM"] = "xcb"
 if os.name == "nt":
     os.environ["QT_QPA_PLATFORM"] = "windows"
 try:
@@ -17,12 +16,14 @@ except Exception as e:
     )
 
 
-def chord(pitches, **kwargs):
+def chord(pitches, **kwargs):    
     try:
         neoscore.shutdown()
     except:
         pass
+
     neoscore.setup()
+    
     if isinstance(pitches, str):
         pitches = [pitches]
     elif isinstance(pitches, int):
@@ -107,7 +108,7 @@ def chord(pitches, **kwargs):
 
     neoscore.render_image(rect=None, dest=notePathName, dpi=scoreZoom, wait=True)
     neoscore.shutdown()
-    if os.name == "nt":
-        notePathName = notePathName.replace("\\", "/")
+    #if os.name == "nt":
+      #  notePathName = notePathName.replace("\\", "/")
     pd.show_image(notePathName)
     return None
