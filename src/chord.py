@@ -12,7 +12,7 @@ try:
 except Exception as e:
     pd.error(str(e))
     pd.error(
-        "To fix this, send the message 'pipinstall local neoscore' to the object py4pd and restart Pd."
+        "To fix this, send the message 'pipinstall global neoscore' to the object py4pd and restart Pd."
     )
 
 
