@@ -1,32 +1,24 @@
-import os
 from random import randint
 
 import pd
+from neoscore.common import *
 
 from .pdscoreutils import getpitchKey, neoscore_midicent2note
 
-if os.name == "nt":
-    os.environ["QT_QPA_PLATFORM"] = "windows"
-try:
-    from neoscore.common import *
-except Exception as e:
-    pd.error(str(e))
-    pd.error(
-        "To fix this, send the message 'pipinstall global neoscore' to the object py4pd and restart Pd."
-    )
 
-
-def chord(pitches, **kwargs):    
+def chord(pitches, **kwargs):
     try:
         neoscore.shutdown()
     except:
         pass
 
     neoscore.setup()
-    
+
     if isinstance(pitches, str):
         pitches = [pitches]
     elif isinstance(pitches, int):
+        if (pitches > 0) and (pitches < 127):
+            pitches = pitches * 100
         try:
             pitches = [neoscore_midicent2note(pitches, **kwargs)]
         except BaseException as e:
@@ -34,6 +26,9 @@ def chord(pitches, **kwargs):
             neoscore.shutdown()
             return
     elif isinstance(pitches, float):
+        if (pitches > 0) and (pitches < 127):
+            pitches = pitches * 100
+
         try:
             pitches = [neoscore_midicent2note(int(pitches), **kwargs)]
         except BaseException:
@@ -108,7 +103,7 @@ def chord(pitches, **kwargs):
 
     neoscore.render_image(rect=None, dest=notePathName, dpi=scoreZoom, wait=True)
     neoscore.shutdown()
-    #if os.name == "nt":
-      #  notePathName = notePathName.replace("\\", "/")
+    # if os.name == "nt":
+    #  notePathName = notePathName.replace("\\", "/")
     pd.show_image(notePathName)
     return None
