@@ -1,4 +1,5 @@
 from random import randint
+import os
 
 import pd
 from neoscore.common import *
@@ -88,9 +89,11 @@ def chord(pitches, **kwargs):
     scoreNumber = pd.get_obj_var("scoreNumber")
     if scoreNumber is None:
         scoreNumber = 0
+        
     notePathName = (
         py4pdTMPfolder + "/" + pd.get_obj_pointer() + "_" + str(scoreNumber) + ".ppm"
-    )
+    )        
+   
     pd.set_obj_var("scoreNumber", scoreNumber + 1)
     patchZoom = pd.get_patch_zoom()
     if patchZoom == 1:
@@ -103,7 +106,7 @@ def chord(pitches, **kwargs):
 
     neoscore.render_image(rect=None, dest=notePathName, dpi=scoreZoom, wait=True)
     neoscore.shutdown()
-    # if os.name == "nt":
-    #  notePathName = notePathName.replace("\\", "/")
+    if os.name == "nt":
+        notePathName = notePathName.replace("\\", "/")
     pd.show_image(notePathName)
     return None
