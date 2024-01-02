@@ -21,4 +21,13 @@ def py4pdLoadObjects():
         scoreImage = "./resources/score_nozoom.gif"
     elif patchZoom == 2:
         scoreImage = "./resources/score.gif"
-    pd.add_object(chord, "py.chord", objtype=pd.VIS, objimage=scoreImage)
+    
+    # py.chord
+    chordObj = pd.new_object("py.chord")
+    chordObj.addmethod_anything(chord)
+    chordObj.image = scoreImage
+    chordObj.fig_size = (250, 250)
+    chordObj.type = pd.VIS
+    chordObj.add_object()
+    
+

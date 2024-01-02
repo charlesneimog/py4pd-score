@@ -7,7 +7,7 @@ from neoscore.common import *
 from .pdscoreutils import getpitchKey, neoscore_midicent2note
 
 
-def chord(pitches, **kwargs):
+def chord(pitches, test, **kwargs):
     try:
         neoscore.shutdown()
     except:
