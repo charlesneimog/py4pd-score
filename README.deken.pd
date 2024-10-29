@@ -1,8 +1,8 @@
 #N canvas 724 134 1017 752 8;
 #X text 133 294 by Charles K. Neimog;
-#X text 89 2 Welcome to the pd-score documentation!;
+#X text 89 2 Welcome to the score documentation!;
 #X text 1 22 This library requires py4pd object \, search py4pd on Deken to download it \, first you need to install Python \, py4pd and then install neoscore to this work., f 71;
-#X obj 4 63 py4pd -lib py4pd-score;
+#X obj 4 63 py4pd -lib score;
 #X obj 2 159 py.chord;
 #X msg 2 127 C+5;
 #X text 122 64 <= If this not work \, something is missing.;

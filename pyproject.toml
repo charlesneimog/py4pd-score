@@ -1,0 +1,20 @@
+[project]
+name = "py4pd-score" 
+version = "0.1.0" 
+description = "Use scores inside PureData" 
+dependencies = [
+    "neoscore",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/charlesneimog/py4pd-score" 
+
+[tool.setuptools]
+packages = ["score"]  
+
+[tool.setuptools.package-data]
+"score" = ["*", "resources/*", "help/*"] 
+
+[tool.black]
+line-length = 180
+
