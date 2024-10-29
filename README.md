@@ -4,7 +4,9 @@
 
 ## List of Objects
 
-`py.chord`:
+`py.chord`
+
+#### Todo: `py.note`, `py.voice`
 
 ## Install
 
